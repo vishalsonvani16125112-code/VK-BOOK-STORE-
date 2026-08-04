@@ -84,13 +84,30 @@ button{
 
 <button>Buy Now</button>
 
-<button>Add To Cart</button>
+<button onclick="addToCart()">Add To Cart</button>
 
 <a href="men.html" class="back">⬅ Back to Men Collection</a>
 
 </div>
 
 </div>
+<script>
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+  let product = {
+    name: "Cream T-Shirt",
+    price: 499,
+    image: "tshirt2.jpg",
+    size: document.querySelector("select").value
+  };
+
+  cart.push(product);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert("Product Added To Cart Successfully!");
+}
+</script>
 </body>
 </html>
