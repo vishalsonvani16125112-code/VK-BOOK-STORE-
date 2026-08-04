@@ -98,6 +98,23 @@ button{
 <a href="index.html" class="back">⬅ Back to Home</a>
 
 </div>
+<script>
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+  let product = {
+    name: "Sky Blue T-Shirt",
+    price: 499,
+    image: "tshirt1.jpg",
+    size: document.querySelector("select").value
+  };
+
+  cart.push(product);
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  alert("Product Added To Cart Successfully!");
+}
+</script>
 </body>
 </html>
