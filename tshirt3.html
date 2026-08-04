@@ -108,7 +108,7 @@ button{
 <button>Buy Now</button>
 <button onclick="location.href='cart.html'">Go To Cart</button>
 <button onclick="addToCart()">Add To Cart</button>
-
+<button onclick="addToWishlist()">❤️ Add To Wishlist</button>
 </div>
 
 <a href="men.html" class="back">← Back To Men Collection</a>
@@ -134,6 +134,24 @@ localStorage.setItem("cart",JSON.stringify(cart));
 alert("Product Added To Cart Successfully!");
 
 }
+    function addToWishlist(){
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+let product = {
+name:"Cream T-Shirt",
+price:499,
+image:"tshirt3.jpg",
+size:document.querySelector("select").value
+};
+
+wishlist.push(product);
+
+localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+alert("Product Added To Wishlist!");
+
+    }
 </script>
 
 </body>
