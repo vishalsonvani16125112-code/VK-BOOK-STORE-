@@ -108,3 +108,69 @@ margin-top:40px;
 <a href="men.html">← Continue Shopping</a>
 <button onclick="clearWishlist()">Clear Wishlist</button>
   </div>
+<script>
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+let wishlistItems = document.getElementById("wishlist-items");
+
+function displayWishlist(){
+
+wishlistItems.innerHTML="";
+
+if(wishlist.length===0){
+wishlistItems.innerHTML="<p class='empty'>Your Wishlist is Empty</p>";
+return;
+}
+
+wishlist.forEach((item,index)=>{
+
+wishlistItems.innerHTML += `
+<div class="wishlist-item">
+
+<img src="${item.image}">
+
+<div class="details">
+
+<h3>${item.name}</h3>
+
+<p>Price : ₹${item.price}</p>
+
+<p>Size : ${item.size}</p>
+
+</div>
+
+<button class="remove-btn" onclick="removeItem(${index})">
+Remove
+</button>
+
+</div>
+`;
+
+});
+
+}
+
+function removeItem(index){
+
+wishlist.splice(index,1);
+
+localStorage.setItem("wishlist",JSON.stringify(wishlist));
+
+location.reload();
+
+}
+
+function clearWishlist(){
+
+localStorage.removeItem("wishlist");
+
+location.reload();
+
+}
+
+displayWishlist();
+
+</script>
+
+</body>
+</html>
