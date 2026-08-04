@@ -14,15 +14,15 @@ body{
 }
 
 .product{
-    max-width:500px;
+    max-width:450px;
     margin:auto;
     background:#fff;
-    border-radius:10px;
+    border-radius:12px;
     overflow:hidden;
-    box-shadow:0 2px 10px rgba(0,0,0,.2);
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
 }
 
-img{
+.product img{
     width:100%;
     height:420px;
     object-fit:cover;
@@ -32,10 +32,27 @@ img{
     padding:20px;
 }
 
+h2{
+    margin:0;
+    font-size:40px;
+}
+
 .price{
     color:#ff3b6c;
-    font-size:30px;
+    font-size:32px;
     font-weight:bold;
+    margin:15px 0;
+}
+
+label{
+    font-weight:bold;
+}
+
+select{
+    width:100%;
+    padding:12px;
+    margin:10px 0 15px;
+    font-size:18px;
 }
 
 button{
@@ -43,21 +60,23 @@ button{
     padding:15px;
     margin-top:10px;
     border:none;
+    border-radius:8px;
     background:#ff3b6c;
     color:#fff;
     font-size:18px;
-    border-radius:8px;
+    cursor:pointer;
 }
 
 .back{
     display:block;
     text-align:center;
-    margin-top:15px;
+    margin:20px;
     text-decoration:none;
     color:#ff3b6c;
     font-weight:bold;
 }
 </style>
+
 </head>
 
 <body>
@@ -70,44 +89,52 @@ button{
 
 <h2>Black T-Shirt</h2>
 
-<p class="price">₹549</p>
+<div class="price">₹549</div>
 
+<p><b>Brand:</b> VK Fashion Store</p>
 <p><b>Color:</b> Black</p>
+<p><b>Fabric:</b> 100% Premium Cotton</p>
 
-<p><b>Fabric:</b> 100% Cotton</p>
+<label>Select Size</label>
 
-<p><b>Sizes:</b> S, M, L, XL, XXL</p>
-
-<p><b>Fit:</b> Regular Fit</p>
-
-<p>Soft cotton premium quality T-Shirt for daily wear.</p>
+<select>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+<option>XXL</option>
+</select>
 
 <button>Buy Now</button>
 
 <button onclick="addToCart()">Add To Cart</button>
 
-<a href="men.html" class="back">⬅ Back to Men Collection</a>
+</div>
+
+<a href="men.html" class="back">← Back To Men Collection</a>
 
 </div>
 
-</div>
 <script>
-function addToCart() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+function addToCart(){
 
-  let product = {
-    name: "Black T-Shirt",
-    price: 499,
-    image: "tshirt2.jpg",
-    size: document.querySelector("select").value
-  }; 
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
 
-  cart.push(product);
+let product={
+name:"Black T-Shirt",
+price:549,
+image:"tshirt2.jpg",
+size:document.querySelector("select").value
+};
 
-  localStorage.setItem("cart", JSON.stringify(cart));
+cart.push(product);
 
-  alert("Product Added To Cart Successfully!");
+localStorage.setItem("cart",JSON.stringify(cart));
+
+alert("Product Added To Cart Successfully!");
+
 }
 </script>
+
 </body>
-</html>
+    </html>
