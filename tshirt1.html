@@ -134,6 +134,24 @@ localStorage.setItem("cart",JSON.stringify(cart));
 alert("Product Added To Cart Successfully!");
 
 }
+    function addToWishlist(){
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+let product = {
+name:"Sky Blue T-Shirt",
+price:499,
+image:"tshirt1.jpg",
+size:document.querySelector("select").value
+};
+
+wishlist.push(product);
+
+localStorage.setItem("wishlist",JSON.stringify(wishlist));
+
+alert("Product Added To Wishlist!");
+
+    }
 </script>
 
 </body>
