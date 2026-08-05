@@ -118,8 +118,10 @@ if(payment === "Select Payment Method"){
     alert("Please select a payment method.");
     return;
 }
+let currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
 let order = {
+    userEmail: currentUser.email,
     name,
     mobile,
     email,
@@ -129,7 +131,7 @@ let order = {
     pincode,
     payment
 };
-let currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
 orders.push(order);
 localStorage.setItem("orders", JSON.stringify(orders));
