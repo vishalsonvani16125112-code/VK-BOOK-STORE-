@@ -48,6 +48,13 @@ button{
 <input type="number" id="mobile" placeholder="Mobile Number">
 
 <textarea id="address" placeholder="Full Address"></textarea>
+  <input type="email" id="email" placeholder="Email Address">
+
+<input type="text" id="city" placeholder="City">
+
+<input type="text" id="state" placeholder="State">
+
+<input type="number" id="pincode" placeholder="PIN Code">
   
 <select id="payment">
 <option>Select Payment Method</option>
@@ -63,16 +70,68 @@ button{
 <script>
 function placeOrder() {
 
+let name = document.getElementById("name").value.trim();
+let mobile = document.getElementById("mobile").value.trim();
+let email = document.getElementById("email").value.trim();
+let address = document.getElementById("address").value.trim();
+let city = document.getElementById("city").value.trim();
+let state = document.getElementById("state").value.trim();
+let pincode = document.getElementById("pincode").value.trim();
+let payment = document.getElementById("payment").value;
+
+if(name === ""){
+    alert("Please enter your name.");
+    return;
+}
+
+if(!/^[0-9]{10}$/.test(mobile)){
+    alert("Please enter a valid 10-digit mobile number.");
+    return;
+}
+
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    alert("Please enter a valid email address.");
+    return;
+}
+
+if(address === ""){
+    alert("Please enter your address.");
+    return;
+}
+
+if(city === ""){
+    alert("Please enter your city.");
+    return;
+}
+
+if(state === ""){
+    alert("Please enter your state.");
+    return;
+}
+
+if(!/^[0-9]{6}$/.test(pincode)){
+    alert("Please enter a valid 6-digit PIN Code.");
+    return;
+}
+
+if(payment === "Select Payment Method"){
+    alert("Please select a payment method.");
+    return;
+}
+
 let order = {
-name: document.getElementById("name").value,
-mobile: document.getElementById("mobile").value,
-address: document.getElementById("address").value,
-payment: document.getElementById("payment").value
+    name,
+    mobile,
+    email,
+    address,
+    city,
+    state,
+    pincode,
+    payment
 };
 
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
 orders.push(order);
-
 localStorage.setItem("orders", JSON.stringify(orders));
 
 alert("✅ Order Placed Successfully!");
