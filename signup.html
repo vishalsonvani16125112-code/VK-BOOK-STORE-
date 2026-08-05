@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Signup - VK Fashion Store</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f5f5f5;
+text-align:center;
+}
+
+.signup-box{
+background:white;
+width:90%;
+max-width:350px;
+margin:50px auto;
+padding:20px;
+border-radius:10px;
+}
+
+input{
+width:90%;
+padding:10px;
+margin:10px;
+}
+
+button{
+background:black;
+color:white;
+padding:10px 25px;
+border:none;
+border-radius:5px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>VK Fashion Store</h1>
+
+<div class="signup-box">
+
+<h2>Signup</h2>
+
+<input type="text" id="name" placeholder="Full Name">
+
+<input type="email" id="email" placeholder="Email">
+
+<input type="password" id="password" placeholder="Password">
+
+<br>
+
+<button onclick="signup()">Create Account</button>
+
+<p>
+Already User?
+<a href="login.html">Login</a>
+</p>
+
+</div>
+
+
+<script>
+
+function signup(){
+
+let user={
+name:document.getElementById("name").value,
+email:document.getElementById("email").value,
+password:document.getElementById("password").value
+};
+
+localStorage.setItem("user",JSON.stringify(user));
+
+alert("Signup Successful!");
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+</body>
+</html>
