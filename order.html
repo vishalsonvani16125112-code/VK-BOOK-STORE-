@@ -129,7 +129,7 @@ let order = {
     pincode,
     payment
 };
-
+let currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
 let orders = JSON.parse(localStorage.getItem("orders")) || [];
 orders.push(order);
 localStorage.setItem("orders", JSON.stringify(orders));
