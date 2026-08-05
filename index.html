@@ -302,6 +302,25 @@ font-weight:bold;
 <footer>
 © 2026 VK Fashion Store | All Rights Reserved
 </footer>
+<script>
+function searchProduct(){
 
+let text = document.getElementById("searchInput").value.toLowerCase().trim();
+
+if(text === "men" || text === "tshirt" || text === "t-shirt" || text === "shirt"){
+    window.location.href = "men.html";
+}
+else if(text === "women" || text === "kurti" || text === "top"){
+    window.location.href = "women.html";
+}
+else if(text === "kids"){
+    window.location.href = "kids.html";
+}
+else{
+    alert("Product not found!");
+}
+
+}
+</script>
 </body>
 </html>
