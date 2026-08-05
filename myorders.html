@@ -61,6 +61,7 @@ if(orders.length === 0){
             <p><b>Mobile:</b> ${order.mobile}</p>
             <p><b>Address:</b> ${order.address}</p>
             <p><b>Payment:</b> ${order.payment}</p>
+            <button onclick="cancelOrder(${index})">Cancel Order</button>
         </div>
         `;
     });
