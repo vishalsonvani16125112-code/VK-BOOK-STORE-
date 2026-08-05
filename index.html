@@ -307,13 +307,23 @@ function searchProduct(){
 
 let text = document.getElementById("searchInput").value.toLowerCase().trim();
 
-if(text === "men" || text === "tshirt" || text === "t-shirt" || text === "shirt"){
+if(
+    text.includes("men") ||
+    text.includes("tshirt") ||
+    text.includes("t-shirt") ||
+    text.includes("shirt") ||
+    text.includes("black") ||
+    text.includes("cream") ||
+    text.includes("blue") ||
+    text.includes("hoodie") ||
+    text.includes("jeans")
+){
     window.location.href = "men.html";
 }
-else if(text === "women" || text === "kurti" || text === "top"){
+else if(text.includes("women") || text.includes("kurti") || text.includes("top")){
     window.location.href = "women.html";
 }
-else if(text === "kids"){
+else if(text.includes("kids")){
     window.location.href = "kids.html";
 }
 else{
