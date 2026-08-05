@@ -46,7 +46,18 @@ button{
 <button onclick="location.href='index.html'">Back To Home</button>
 
 <script>
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
+let currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+if(!currentUser){
+    alert("Please Login First");
+    window.location.href="login.html";
+}
+
+let allOrders = JSON.parse(localStorage.getItem("orders")) || [];
+
+let orders = allOrders.filter(function(order){
+    return order.userEmail == currentUser.email;
+});
 
 let output = "";
 
