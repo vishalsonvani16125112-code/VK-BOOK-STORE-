@@ -70,6 +70,7 @@ let password = document.getElementById("password").value;
 let user = JSON.parse(localStorage.getItem("user"));
 
 if(user && user.email == email && user.password == password){
+localStorage.setItem("loggedInUser", JSON.stringify(user));
 
 alert("Login Successful!");
 
