@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Orders</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    margin:0;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+.order{
+    background:#fff;
+    padding:15px;
+    margin:15px auto;
+    max-width:500px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+button{
+    display:block;
+    margin:20px auto;
+    padding:12px 25px;
+    background:black;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+
+<h1>My Orders</h1>
+
+<div id="orders"></div>
+
+<button onclick="location.href='index.html'">Back To Home</button>
+
+<script>
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+let output = "";
+
+if(orders.length === 0){
+    output = "<h3 style='text-align:center;'>No Orders Found</h3>";
+}else{
+    orders.forEach(function(order, index){
+        output += `
+        <div class="order">
+            <h3>Order ${index + 1}</h3>
+            <p><b>Name:</b> ${order.name}</p>
+            <p><b>Mobile:</b> ${order.mobile}</p>
+            <p><b>Address:</b> ${order.address}</p>
+            <p><b>Payment:</b> ${order.payment}</p>
+        </div>
+        `;
+    });
+}
+
+document.getElementById("orders").innerHTML = output;
+</script>
+
+</body>
+</html>
