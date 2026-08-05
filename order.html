@@ -60,6 +60,25 @@ button{
 <button onclick="placeOrder()">Place Order</button>
 
 </div>
+<script>
+function placeOrder() {
 
+let order = {
+name: document.getElementById("name").value,
+mobile: document.getElementById("mobile").value,
+address: document.getElementById("address").value,
+payment: document.getElementById("payment").value
+};
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+orders.push(order);
+
+localStorage.setItem("orders", JSON.stringify(orders));
+
+alert("✅ Order Placed Successfully!");
+
+window.location.href = "index.html";
+}
+</script>
 </body>
 </html>
