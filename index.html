@@ -307,20 +307,25 @@ function searchProduct(){
 
 let text = document.getElementById("searchInput").value.toLowerCase().trim();
 
-if(
-    text.includes("men") ||
-    text.includes("tshirt") ||
-    text.includes("t-shirt") ||
-    text.includes("shirt") ||
-    text.includes("black") ||
-    text.includes("cream") ||
-    text.includes("blue") ||
-    text.includes("hoodie") ||
-    text.includes("jeans")
-){
+if(text.includes("black t-shirt") || text.includes("black tshirt")){
+    window.location.href = "tshirt1.html";
+}
+else if(text.includes("cream t-shirt") || text.includes("cream tshirt")){
+    window.location.href = "tshirt2.html";
+}
+else if(text.includes("sky blue t-shirt") || text.includes("sky blue tshirt")){
+    window.location.href = "tshirt3.html";
+}
+else if(text.includes("hoodie")){
+    window.location.href = "hoodie.html";
+}
+else if(text.includes("jeans")){
+    window.location.href = "jeans.html";
+}
+else if(text.includes("men") || text.includes("tshirt") || text.includes("shirt")){
     window.location.href = "men.html";
 }
-else if(text.includes("women") || text.includes("kurti") || text.includes("top")){
+else if(text.includes("women")){
     window.location.href = "women.html";
 }
 else if(text.includes("kids")){
@@ -330,7 +335,7 @@ else{
     alert("Product not found!");
 }
 
-}
+  }
 </script>
 </body>
 </html>
