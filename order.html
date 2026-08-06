@@ -74,18 +74,23 @@ import { auth } from "./firebase.js";
 import { onAuthStateChanged } 
 from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
+let firebaseUser = null;
 
 onAuthStateChanged(auth, (user)=>{
 
 if(!user){
 
 alert("Please Login First");
-
 window.location.href="login.html";
+
+}else{
+
+firebaseUser = user;
 
 }
 
 });
+
 function placeOrder() {
 
 let name = document.getElementById("name").value.trim();
