@@ -141,10 +141,13 @@ if(payment === "Select Payment Method"){
     alert("Please select a payment method.");
     return;
 }
-let currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+if(!firebaseUser){
+    alert("Please Login First");
+    return;
+}
 
 let order = {
-    userEmail: currentUser.email,
+    userEmail: firebaseUser.email,
     name,
     mobile,
     email,
