@@ -145,27 +145,34 @@ if(!firebaseUser){
     alert("Please Login First");
     return;
 }
+try{
 
-let order = {
-    userEmail: firebaseUser.email,
-    name,
-    mobile,
-    email,
-    address,
-    city,
-    state,
-    pincode,
-    payment
-};
+await addDoc(collection(db,"orders"),{
 
-let orders = JSON.parse(localStorage.getItem("orders")) || [];
-orders.push(order);
-localStorage.setItem("orders", JSON.stringify(orders));
+userEmail: firebaseUser.email,
+name,
+mobile,
+email,
+address,
+city,
+state,
+pincode,
+payment,
+status:"Pending",
+createdAt: serverTimestamp()
+
+});
 
 alert("✅ Order Placed Successfully!");
 
-window.location.href = "myorders.html";
+window.location.href="myorders.html";
+
+}catch(error){
+
+alert("Order Failed: " + error.message);
+
 }
+
 
 </script>
 </body>
