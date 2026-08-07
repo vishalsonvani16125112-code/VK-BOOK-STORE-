@@ -143,7 +143,14 @@ ordersDiv.innerHTML += `
 
 <p><b>Payment:</b> ${order.payment}</p>
 
-<p><b>Status:</b> ${order.status}</p>
+<p>
+<b>Status:</b>
+<select onchange="updateStatus(${index}, this.value)">
+<option value="Pending" ${order.status=="Pending"?"selected":""}>Pending</option>
+<option value="Shipped" ${order.status=="Shipped"?"selected":""}>Shipped</option>
+<option value="Delivered" ${order.status=="Delivered"?"selected":""}>Delivered</option>
+</select>
+</p>
 
 </div>
 
