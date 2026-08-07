@@ -69,7 +69,11 @@ button{
 </div>
   <script type="module">
 import { auth, db } from "./firebase.js";
-
+import {
+  addDoc,
+  collection,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 import { onAuthStateChanged } 
 from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
@@ -90,7 +94,7 @@ firebaseUser = user;
 
 });
 
-window.placeOrder = function() {
+window.placeOrder = async function() {
 
 let name = document.getElementById("name").value.trim();
 let mobile = document.getElementById("mobile").value.trim();
