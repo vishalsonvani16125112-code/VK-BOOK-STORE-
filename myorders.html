@@ -83,11 +83,9 @@ async function loadOrders() {
   let output = "";
 
   const q = query(
-    collection(db, "orders"),
-    where("userEmail", "==", currentUser.email),
-    orderBy("createdAt", "desc")
-  );
-
+  collection(db, "orders"),
+  where("userEmail", "==", currentUser.email)
+);
   const querySnapshot = await getDocs(q);
 
   if (querySnapshot.empty) {
