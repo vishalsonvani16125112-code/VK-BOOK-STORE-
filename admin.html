@@ -170,7 +170,28 @@ alert(error.message);
 
 
 });
+window.updateStatus = async function(orderId, newStatus){
 
+  try{
+
+    const orderRef = doc(db, "orders", orderId);
+
+    await updateDoc(orderRef, {
+      status: newStatus
+    });
+
+    alert("Order Status Updated");
+
+    location.reload();
+
+  }
+  catch(error){
+
+    alert(error.message);
+
+  }
+
+}
 
 </script>
 
