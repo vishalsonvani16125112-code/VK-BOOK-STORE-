@@ -84,7 +84,7 @@ localStorage.setItem(
 JSON.stringify(userCredential.user)
 );
 
-if(user.email === "admin@vkfashion.com"){
+if(userCredential.user.email === "admin@vkfashion.com"){
     window.location.href = "admin.html";
 }
 else{
