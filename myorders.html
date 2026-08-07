@@ -45,67 +45,116 @@ button{
 
 <button onclick="location.href='index.html'">Back To Home</button>
 
-<script>
-let currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+<script type="module">
 
-if(!currentUser){
+import { auth, db } from "./firebase.js";
+
+import { onAuthStateChanged }
+from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  orderBy,
+  deleteDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+let currentUser = null;
+
+onAuthStateChanged(auth, async (user) => {
+
+  if (!user) {
     alert("Please Login First");
-    window.location.href="login.html";
-}
+    window.location.href = "login.html";
+    return;
+  }
 
-let allOrders = JSON.parse(localStorage.getItem("orders")) || [];
+  currentUser = user;
 
-let orders = allOrders.filter(function(order){
-    return order.userEmail == currentUser.email;
+  loadOrders();
+
 });
 
-let output = "";
+async function loadOrders() {
 
-if(orders.length === 0){
+  let output = "";
+
+  const q = query(
+    collection(db, "orders"),
+    where("userEmail", "==", currentUser.email),
+    orderBy("createdAt", "desc")
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) {
+
     output = "<h3 style='text-align:center;'>No Orders Found</h3>";
-}else{
-    orders.forEach(function(order, index){
-        output += `
-        <div class="order">
-            <h3>Order ${index + 1}</h3>
-            <p><b>Name:</b> ${order.name}</p>
-            <p><b>Mobile:</b> ${order.mobile}</p>
-            <p><b>Address:</b> ${order.address}</p>
-            <p><b>Payment:</b> ${order.payment}</p>
-            <button onclick="cancelOrder(${index})">Cancel Order</button>
-        </div>
-        `;
+
+  } else {
+
+    let count = 1;
+
+    querySnapshot.forEach((docSnap) => {
+
+      const order = docSnap.data();
+
+      output += `
+      <div class="order">
+          <h3>Order ${count}</h3>
+
+          <p><b>Name:</b> ${order.name}</p>
+          <p><b>Mobile:</b> ${order.mobile}</p>
+          <p><b>Email:</b> ${order.email}</p>
+          <p><b>Address:</b> ${order.address}</p>
+          <p><b>City:</b> ${order.city}</p>
+          <p><b>State:</b> ${order.state}</p>
+          <p><b>PIN Code:</b> ${order.pincode}</p>
+          <p><b>Payment:</b> ${order.payment}</p>
+          <p><b>Status:</b> ${order.status}</p>
+
+          <button onclick="cancelOrder('${docSnap.id}')">
+              Cancel Order
+          </button>
+      </div>
+      `;
+
+      count++;
+
     });
+
+  }
+
+  document.getElementById("orders").innerHTML = output;
+
 }
-
-document.getElementById("orders").innerHTML = output;
-function cancelOrder(index){
-
-let allOrders = JSON.parse(localStorage.getItem("orders")) || [];
-
-let currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
-
-let userOrders = allOrders.filter(function(order){
-    return order.userEmail == currentUser.email;
-});
-
-let orderToCancel = userOrders[index];
+    window.cancelOrder = async function(orderId){
 
 if(confirm("Are you sure you want to cancel this order?")){
 
-let updatedOrders = allOrders.filter(function(order){
-    return order !== orderToCancel;
-});
+try{
 
-localStorage.setItem("orders", JSON.stringify(updatedOrders));
+await deleteDoc(doc(db, "orders", orderId));
 
 alert("Order Cancelled Successfully!");
 
-location.reload();
+loadOrders();
+
+}catch(error){
+
+alert("Cancel Failed: " + error.message);
+
+console.error(error);
 
 }
 
 }
+
+};
+
 </script>
 
 </body>
