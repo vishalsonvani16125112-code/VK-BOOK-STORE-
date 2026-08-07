@@ -67,116 +67,118 @@ button{
 <button onclick="placeOrder()">Place Order</button>
 
 </div>
-  <script type="module">
+<script type="module">
+
 import { auth, db } from "./firebase.js";
+
+import { onAuthStateChanged }
+from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+
 import {
   addDoc,
   collection,
   serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-import { onAuthStateChanged } 
-from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
 let firebaseUser = null;
 
-onAuthStateChanged(auth, (user)=>{
+onAuthStateChanged(auth, (user) => {
 
-if(!user){
+  if (!user) {
+    alert("Please Login First");
+    window.location.href = "login.html";
+    return;
+  }
 
-alert("Please Login First");
-window.location.href="login.html";
-
-}else{
-
-firebaseUser = user;
-
-}
+  firebaseUser = user;
 
 });
 
-window.placeOrder = async function() {
+window.placeOrder = async function () {
 
-let name = document.getElementById("name").value.trim();
-let mobile = document.getElementById("mobile").value.trim();
-let email = document.getElementById("email").value.trim();
-let address = document.getElementById("address").value.trim();
-let city = document.getElementById("city").value.trim();
-let state = document.getElementById("state").value.trim();
-let pincode = document.getElementById("pincode").value.trim();
-let payment = document.getElementById("payment").value;
+  let name = document.getElementById("name").value.trim();
+  let mobile = document.getElementById("mobile").value.trim();
+  let email = document.getElementById("email").value.trim();
+  let address = document.getElementById("address").value.trim();
+  let city = document.getElementById("city").value.trim();
+  let state = document.getElementById("state").value.trim();
+  let pincode = document.getElementById("pincode").value.trim();
+  let payment = document.getElementById("payment").value;
 
-if(name === ""){
+  if (name === "") {
     alert("Please enter your name.");
     return;
-}
+  }
 
-if(!/^[0-9]{10}$/.test(mobile)){
+  if (!/^[0-9]{10}$/.test(mobile)) {
     alert("Please enter a valid 10-digit mobile number.");
     return;
-}
+  }
 
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     alert("Please enter a valid email address.");
     return;
-}
+  }
 
-if(address === ""){
+  if (address === "") {
     alert("Please enter your address.");
     return;
-}
+  }
 
-if(city === ""){
+  if (city === "") {
     alert("Please enter your city.");
     return;
-}
+  }
 
-if(state === ""){
+  if (state === "") {
     alert("Please enter your state.");
     return;
-}
+  }
 
-if(!/^[0-9]{6}$/.test(pincode)){
+  if (!/^[0-9]{6}$/.test(pincode)) {
     alert("Please enter a valid 6-digit PIN Code.");
     return;
-}
+  }
 
-if(payment === "Select Payment Method"){
+  if (payment === "Select Payment Method") {
     alert("Please select a payment method.");
     return;
-}
-if(!firebaseUser){
+  }
+
+  if (!firebaseUser) {
     alert("Please Login First");
     return;
-}
-try{
+  }
 
-await addDoc(collection(db,"orders"),{
+  try {
 
-userEmail: firebaseUser.email,
-name,
-mobile,
-email,
-address,
-city,
-state,
-pincode,
-payment,
-status:"Pending",
-createdAt: serverTimestamp()
+    await addDoc(collection(db, "orders"), {
+      userEmail: firebaseUser.email,
+      name: name,
+      mobile: mobile,
+      email: email,
+      address: address,
+      city: city,
+      state: state,
+      pincode: pincode,
+      payment: payment,
+      status: "Pending",
+      createdAt: serverTimestamp()
+    });
 
-});
+    alert("✅ Order Placed Successfully!");
 
-alert("✅ Order Placed Successfully!");
+    window.location.href = "myorders.html";
 
-window.location.href="myorders.html";
+  } catch (error) {
 
-}catch(error){
+    alert("Order Failed: " + error.message);
+    console.error(error);
 
-alert("Order Failed: " + error.message);
+  }
 
-}
+};
 
-    }; 
 </script>
 </body>
 </html>
